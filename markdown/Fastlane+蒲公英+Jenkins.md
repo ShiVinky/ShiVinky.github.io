@@ -319,5 +319,4 @@ fastlane archivie_lane
 
 > 然后就可以选择编译参数进行选择性打包
 
-![图1-28](https://shivinky.github.io/images/Snip20220506_23.png) 
-![图1-27](https://note.youdao.com/yws/res/5145/WEBRESOURCE7d56e152f6e4b98cecc2c604d8e6eb37)
+![图1-28](https://shivinky.github.io/images/Snip20220506_23.png)  
