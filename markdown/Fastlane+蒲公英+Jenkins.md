@@ -14,7 +14,7 @@
 ```
 ruby -v
 ```
-![snip20220420_4.png](https://note.youdao.com/yws/res/4843/WEBRESOURCE35516f8bad36372ee11d35f19335d8d4)
+![图1-1](https://shivinky.github.io/images/Snip20220420_6.png)
 
 - 需要注意的是需要将gem的source改为https://gems.ruby-china.org/。有可能造成 bundle update 卡主问题
 如何检查?在终端输入以下命令:
@@ -22,8 +22,8 @@ ruby -v
 gem sources
 ```
 结果应为：
-![snip20220420_3.png](https://note.youdao.com/yws/res/4839/WEBRESOURCE7e6a4a5d8a5a3cefc3f4f7ba72d266c0)
 
+![图1-2](https://shivinky.github.io/images/Snip20220420_3.png)
 
 2. 检查Xcode命令行工具是否安装。在终端输入以下命令：
 
@@ -32,7 +32,7 @@ xcode-select --install
 ```
 > 如果没有安装会进行安装。如果已经安装了则会提示(否则会弹出框让你去安装)：
 
-![snip20220420_6.png](https://note.youdao.com/yws/res/4856/WEBRESOURCE89a830676d683c8684d2d9b6f03b14f3)
+![图1-3](https://shivinky.github.io/images/Snip20220420_16.png)
 
 3. 安装Fastlane
 
@@ -49,7 +49,7 @@ brew install fastlane
 ```
 fastlane --version
 ```
-![snip20220420_7.png](https://note.youdao.com/yws/res/4876/WEBRESOURCE66574eb61465693dce94c3306bbf47ab)
+![图1-4](https://shivinky.github.io/images/Snip20220420_7.png)
 
 
 5. 设置 Fastlane 的环境变量
@@ -82,7 +82,7 @@ fastlane init
 （3）自动发布到 AppStore
 （4）手动设置
  
-![snip20220420_9.png](https://note.youdao.com/yws/res/4895/WEBRESOURCE3f6f6a9e3b5fb1bb819632c92b10ff90)
+![图1-5](https://shivinky.github.io/images/Snip20220420_9.png)
 
 > 如果卡在上面这个图上：去替换 fastlane init 工程里面产生的 Gemfile 文件的源地址，记住是 刚刚 fastlane init 产生的 Gemfile 文件，
 
@@ -101,15 +101,15 @@ eval_gemfile(plugins_path) if File.exist?(plugins_path)
 
 ```
 
-![snip20220420_12.png](https://note.youdao.com/yws/res/4909/WEBRESOURCEec875dddc86d7c5266f65b34c6f4aca1)
+![图1-6](https://shivinky.github.io/images/Snip20220420_12.png)
 
 > 然后 删掉 fastlane 文件夹 重新 fastlane init 成功界面如下:
 
-![snip20220420_13.png](https://note.youdao.com/yws/res/4916/WEBRESOURCE8c01e30ac60a77cca4206e2b49143d14)
+![图1-7](https://shivinky.github.io/images/Snip20220420_13.png)
 
 > 目前我选择的是4，按照提示， 多个Enter 后有可能会输入开发者账号和密码。安装成功之后，会在工程目录生成一个 fastlane 文件夹和 Appfile 和 Fastfile 两个文件。Appfile保存苹果开发者的相关信息、项目的相关信息等。Fastfile是运行脚本。 
 
-![snip20220420_14.png](https://note.youdao.com/yws/res/4920/WEBRESOURCEc506f403e312da844bc91d82ebb41a41)
+![图1-8](https://shivinky.github.io/images/Snip20220420_14.png)
 
 2. 蒲公英的Fastlane插件安装
 > 执行命令安装
@@ -117,12 +117,12 @@ eval_gemfile(plugins_path) if File.exist?(plugins_path)
 fastlane add_plugin pgyer
 ```
 - 可能碰到一下错误 (删掉全部，重新弄一遍，我这样操作过了)
-![snip20220420_15.png](https://note.youdao.com/yws/res/4936/WEBRESOURCEe4d0f801db6cdd534c1a4a74f553eab4)
-![snip20220420_16.png](https://note.youdao.com/yws/res/4940/WEBRESOURCEe9c6de542542d829a028a5d3b86f4bff)
+![图1-9](https://shivinky.github.io/images/Snip20220420_15.png)
+![图1-10](https://shivinky.github.io/images/Snip20220420_20.png)
 
 > 成功如下
 
-![snip20220420_10.png](https://note.youdao.com/yws/res/4947/WEBRESOURCEa6e1ef321de9abc981f7ac164f03dd67)
+![图1-11](https://shivinky.github.io/images/Snip20220420_10.png)
 
 3. 编辑Fastfile文件 
 > app-store,   AppStore正式生产环境包
@@ -149,14 +149,14 @@ platform :ios do
   end
 end
 ```
-![snip20220420_11.png](https://note.youdao.com/yws/res/4957/WEBRESOURCE0eb11a2b79c7e8f78cf52c12de41c55c)
+![图1-12](https://shivinky.github.io/images/Snip20220420_11.png)
 
 > 命令行打包（成功如下）
 
 ```
 fastlane custom_lane
 ```
-![snip20220420_12.png](https://note.youdao.com/yws/res/4973/WEBRESOURCE6351995860f3abd5861cc125dcf68568)
+![图1-13](https://shivinky.github.io/images/Snip20220420_26.png)
 
 
 
@@ -197,11 +197,11 @@ fastlane custom_lane
 ```
 > 如果出现一下错误，可能 [api_key 或 user_key](https://note.youdao.com/) 有误
 
-![snip20220420_13.png](https://note.youdao.com/yws/res/5003/WEBRESOURCEbe51f9599ef16e411a25da3d4d8dfd9f)
+![图1-14](https://shivinky.github.io/images/Snip20220420_22.png)
  
 >  更换后成功如下: (去查看蒲公英就有最新版本了)
 
-![snip20220420_14.png](https://note.youdao.com/yws/res/5012/WEBRESOURCE0a3fc98c1a9055e236f9ae9c69c74f8c)
+![图1-15](https://shivinky.github.io/images/Snip20220420_24.png)
 
 ### Jenkins 
 
@@ -214,7 +214,7 @@ brew install jenkins
 ```
 > 如果安装过程中出现以下错误
 
-![1891649921336_.jpg](https://note.youdao.com/yws/res/5059/WEBRESOURCEd0b7e5fa3a788884cc30e1995c52a5b0)
+![图1-15](https://shivinky.github.io/images/Snip20220420_25.jpg)
 
 > 解决方案:
 
@@ -249,52 +249,62 @@ brew update-reset
 ```
 > 再次执行brew install jenkins 就ok了 ( 它端起啤酒庆祝了 )
 
-![snip20220415_2333333.png](https://note.youdao.com/yws/res/5091/WEBRESOURCE159e6dae2c36118586bd1ac934bd2e61)
+![图1-16](https://shivinky.github.io/images/Snip20220415_233.png)
 
 #### 2、配置
 > ①启动之后在浏览器中输入http://localhost:8080 就会进入Jenkins初始页面
 按照提示填写管理密码点击继续 
 
-![snip20220415_344444.png](https://note.youdao.com/yws/res/5099/WEBRESOURCE63a0e5aa65f5d2f8be56ecee356097c0)
+![图1-16](https://shivinky.github.io/images/Snip20220506_8.png)
 
 > ② 安装推荐
 
-![snip20220415_4666.png](https://note.youdao.com/yws/res/5105/WEBRESOURCEa98b85bc17cd9c6e52e89dfc63e97acf)
+![图1-17](https://shivinky.github.io/images/Snip20220506_9.png)
 
 > ③ 注册一个管理账号
 
-![snip20220415_59999.png](https://note.youdao.com/yws/res/5110/WEBRESOURCE4e8bc445499da55ddecca69c0d6974e0)
+![图1-18](https://shivinky.github.io/images/Snip20220506_10.png)
 
 > ④ 配置URL (默认就可以)
 
-![snip20220415_3333333333333333.png](https://note.youdao.com/yws/res/5115/WEBRESOURCE1b3222623a2c24f3825ff38b3e93882a)
+![图1-19](https://shivinky.github.io/images/Snip20220506_11.png)
 
 
 > ⑤ 新建任务
 
-![snip20220423_3.png](https://note.youdao.com/yws/res/5120/WEBRESOURCE514240bd71e42989e05e04a5f4bf8eab)
+![图1-20](https://shivinky.github.io/images/Snip20220506_12.png)
 
-![snip20220423_6.png](https://note.youdao.com/yws/res/5123/WEBRESOURCE3a5f40fd7baa537e27aa824a20bf1d5e)
+![图1-21](https://shivinky.github.io/images/Snip20220506_13.png)
 
 > ⑥ 配置任务
 - 1、基本配置
 
-![snip20220423_7.png](https://note.youdao.com/yws/res/5130/WEBRESOURCEa049df6918e5e4ab244d644e479d755b)
+![图1-22](https://shivinky.github.io/images/Snip20220506_14.png)
 
 - 2、配置代码仓库，供jenkins拉取代码
 
-![snip20220423_9.png](https://note.youdao.com/yws/res/5136/WEBRESOURCE412f946d1e9ad7aeacd803a6faaa4fd3)
+![图1-23](https://shivinky.github.io/images/Snip20220506_15.png)
 
 
 - 3、构建
 > 因为我用的是 Fastlane 脚本，所以选择shell
 
-![snip20220423_10.png](https://note.youdao.com/yws/res/5143/WEBRESOURCEff21e2db3ca0e230807118f83ff1e448)
+![图1-23](https://shivinky.github.io/images/Snip20220506_16.png)
 
-![snip20220423_11.png](https://note.youdao.com/yws/res/5145/WEBRESOURCE7d56e152f6e4b98cecc2c604d8e6eb37)
+![图1-24](https://shivinky.github.io/images/Snip20220506_17.png)
 
 - 4、执行构建
+
+![图1-25](https://shivinky.github.io/images/Snip20220506_18.png)
+
+> 如果报错 UTF-8 问题，则需添加如下 shell
+  
+```
+export LANG=en_US.UTF-8
+
+cd SDYunPro
+fastlane archivie_lane
 ```
 
-```
+![图1-25](https://shivinky.github.io/images/Snip20220506_19.png)
 
