@@ -308,3 +308,16 @@ fastlane archivie_lane
 
 ![图1-25](https://shivinky.github.io/images/Snip20220506_19.png)
 
+
+### Jekins 环境变量配置
+
+> 配置区分打包环境
+
+![图1-26](https://shivinky.github.io/images/Snip20220506_20.png)
+
+![图1-27](https://shivinky.github.io/images/Snip20220506_21.png)
+
+> 然后就可以选择编译参数进行选择性打包
+
+![图1-28](https://shivinky.github.io/images/Snip20220506_23.png) 
+![图1-27](https://note.youdao.com/yws/res/5145/WEBRESOURCE7d56e152f6e4b98cecc2c604d8e6eb37)
