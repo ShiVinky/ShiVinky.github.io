@@ -262,7 +262,7 @@ platform :ios do
         export_options:{
             # 打包导出时可选描述文件 "bundleID"=>"描述文件名称"
             provisioningProfiles: {
-                Bundle_id => "#{Project_name}.mobileprovision",
+                Bundle_id => "#{Profile_name}.mobileprovision",
             },
         }
     )
