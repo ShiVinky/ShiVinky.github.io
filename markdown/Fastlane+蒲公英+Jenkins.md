@@ -203,9 +203,9 @@ default_platform(:ios)
 platform :ios do
 
   # 定义全局参数
-  CurrentTime = Time.new.strftime("%Y-%m-%d-%H-%M")
-  Archive_ipa_dir = "../archivie/ipa/#{CurrentTime}"
-  Archive_log_dir = "#{Archive_ipa_dir}/arrchivelog" 
+  Archive_time = Time.new.strftime("%Y-%m-%d-%H-%M") 
+  Archive_ipa_dir = "../archivie/ipa/#{Archive_time}/"
+  Archive_log_dir = "#{Archive_ipa_dir}arrchivelog" 
 
   Project_name = "xxx"
   Target_name = "xxx"
@@ -215,37 +215,39 @@ platform :ios do
   Code_signing_id = "iPhone Distribution: xxxx Co., Ltd. (57xxxG2)"
 
   # 打包的lane操作，我们可以配置多个lane来打不同环境的包
-  lane :adhoc do
- 
-    # 设置build版本自增长
-    setBuildVersion
+  lane :archivie_lane do |op|
 
-    automatic_code_signing( # 这里可以不填，不填就是xcode的默认配置
-      # 工程文件所在路径
-      path: Project_name + ".xcodeproj",
-      # 是否使用自动签名，这里如果是打包的话应该一般都为false吧，默认也是false
-      use_automatic_signing:false,
-      # 打包的team ID， 也就是打包使用的证书中的team ID，这个如果不知道是什么的话可以在xCode中设置好签名用的描述文件后到xcodeproj下的pbxproj文件中搜索“DEVELOPMENT_TEAM”，它的值就是了
-      # team_id:"---",
-      team_id:Team_id,
-      # 这个就不用说了，需要修改的targets
-      targets:Target_name,
-      # 用哪种方式打包“iPhone Develop”还是“iPhone Distribution”
-      code_sign_identity:Code_signing_id,
-      # 描述文件名称， 也就是使用哪个描述文件打包
-      profile_name:Profile_name
-    )
-  
+    # 外部命令传的参数 例如: fastlane archivie_lane buildEvr:${xxxx} 
+    Build_evr = op[:buildEvr] 
+    
+    IPA_name = Project_name + "_" + Archive_time + "_" + Build_evr 
+
+    # automatic_code_signing( # 这里可以不填，不填就是xcode的默认配置
+    #   # 工程文件所在路径
+    #   path: Project_name + ".xcodeproj",
+    #   # 是否使用自动签名，这里如果是打包的话应该一般都为false吧，默认也是false
+    #   use_automatic_signing:false,
+    #   # 打包的team ID， 也就是打包使用的证书中的team ID，这个如果不知道是什么的话可以在xCode中设置好签名用的描述文件后到xcodeproj下的pbxproj文件中搜索“DEVELOPMENT_TEAM”，它的值就是了
+    #   # team_id:"---",
+    #   team_id:Team_id,
+    #   # 这个就不用说了，需要修改的targets
+    #   targets:Target_name,
+    #   # 用哪种方式打包“iPhone Develop”还是“iPhone Distribution”
+    #   code_sign_identity:Code_signing_id,
+    #   # 描述文件名称， 也就是使用哪个描述文件打包
+    #   profile_name:Profile_name
+    # )
+    
     gym(
         # 打包方式，"app-store", "ad-hoc", "package", "enterprise", "development", "developer-id"
         export_method: "ad-hoc",
         scheme: Project_name,
-        # pod 生成的workspace文件
-        workspace:Project_name + ".xcworkspace",
+        # # pod 生成的workspace文件
+        # workspace:Project_name + ".xcworkspace",
         # 输出文件夹
         output_directory:Archive_ipa_dir,
         # 输出包名称
-        output_name: Target_name  + ".ipa",
+        output_name: IPA_name  + ".ipa",
 
         # 打包前是否clean
         clean:true,
@@ -258,17 +260,17 @@ platform :ios do
         codesigning_identity:Code_signing_id,
         # Xcode 9 默认不允许访问钥匙串的内容,必须要设置此项才可以，运行过程可能会提示是否允许访问钥匙串，需要输入电脑密码
         export_xcargs: "-allowProvisioningUpdates",
-        # 导出选项
-        export_options:{
-            # 打包导出时可选描述文件 "bundleID"=>"描述文件名称"
-            provisioningProfiles: {
-                Bundle_id => "#{Profile_name}.mobileprovision",
-            },
-        }
+        # 导出选项 (我选用xcode以配置好的默认值 所以无需配置)
+        # export_options:{
+        #     # 打包导出时可选描述文件 "bundleID"=>"描述文件名称" 注意这里根据你的文件名称一致
+        #     provisioningProfiles: {
+        #         Bundle_id => "#{Profile_name}.mobileprovision",
+        #     },
+        # }
     )
 
    # 上传到fir
-   firim(firim_api_token:"这个是在Fir.im对应的API Token")
+   # firim(firim_api_token:"这个是在Fir.im对应的API Token")
   end
 
 end
