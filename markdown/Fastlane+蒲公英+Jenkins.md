@@ -198,8 +198,7 @@ end
 require 'fileutils'
  
 default_platform(:ios) 
-
-
+ 
 # iOS进行的操作
 platform :ios do
 
@@ -208,12 +207,12 @@ platform :ios do
   Archive_ipa_dir = "../archivie/ipa/#{CurrentTime}"
   Archive_log_dir = "#{Archive_ipa_dir}/arrchivelog" 
 
-  Project_name = "SDYunPro"
-  Target_name = "SDYunPro"
-  Profile_name = "AdHoc_sdjy_sdyun"
-  Bundle_id = "com.ai3d.sdjy.sandieyun"
-  Team_id = "573QWHKWG2"
-  Code_signing_id = "iPhone Distribution: Guangzhou Sandianjiyuan Intelligent Technology Co., Ltd. (573QWHKWG2)"
+  Project_name = "xxx"
+  Target_name = "xxx"
+  Profile_name = "xxxx"
+  Bundle_id = "com.xxx.xxx.xxx"
+  Team_id = "57xxxG2"
+  Code_signing_id = "iPhone Distribution: xxxx Co., Ltd. (57xxxG2)"
 
   # 打包的lane操作，我们可以配置多个lane来打不同环境的包
   lane :adhoc do
