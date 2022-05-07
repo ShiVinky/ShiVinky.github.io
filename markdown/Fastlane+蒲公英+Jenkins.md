@@ -399,10 +399,22 @@ brew update-reset
 > 如果报错 UTF-8 问题，则需添加如下 shell
   
 ```
+echo "构建 ${SCHEME} 环境"
+export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 
+if [[ ${SCHEME} =~ "DEV" ]]; then
+    __EVR="DEV"
+elif [[ ${SCHEME} =~ "UAT" ]]; then
+    __EVR="UAT"
+elif [[ ${SCHEME} =~ "PROD" ]]; then
+    __EVR="PROD"
+else
+    __EVR=""
+fi
+
 cd SDYunPro
-fastlane archivie_lane
+fastlane archivie_lane buildEvr:${__EVR}
 ```
 
 ![图1-25](https://shivinky.github.io/images/Snip20220506_19.png)
@@ -415,6 +427,23 @@ fastlane archivie_lane
 ![图1-26](https://shivinky.github.io/images/Snip20220506_20.png)
 
 ![图1-27](https://shivinky.github.io/images/Snip20220506_21.png)
+
+```
+参数名称
+SCHEME
+
+选项
+ENV_DEV
+ENV_UAT
+ENV_PROD
+
+描述
+环境说明: 主要对 fastlane 的 Fastfile 文件内部变量赋值
+ENV_DEV :  开发环境
+ENV_UAT:  预发布环境
+ENV_PROD :  生产环境
+
+```
 
 > 然后就可以选择编译参数进行选择性打包
 
