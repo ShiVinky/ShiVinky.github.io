@@ -191,7 +191,100 @@ platform :ios do
   end
 end
 ```
-2. 执行打包上传蒲公英 （注：custom_lane 自定义调用标签）
+
+2. Fastlane 可以自定义环境变量来接收 像 jenkins 配置的参数(下面会讲到)
+
+```
+require 'fileutils'
+ 
+default_platform(:ios) 
+
+
+# iOS进行的操作
+platform :ios do
+
+  # 定义全局参数
+  CurrentTime = Time.new.strftime("%Y-%m-%d-%H-%M")
+  OutputDirectory = "../build/#{CurrentTime}"
+  LogDirectory = "#{OutputDirectory}/fastlanelog"
+  FirIpaFile = "../"
+
+  ProjectName = "工程名字"
+  Targetname = "打包的target"
+  ProfileName = "打包的描述证书"
+
+  # 打包的lane操作，我们可以配置多个lane来打不同环境的包
+  lane :adhoc do
+ 
+    # 设置build版本自增长
+    setBuildVersion
+
+    automatic_code_signing(
+      # 工程文件所在路径
+      path: ProjectName + ".xcodeproj",
+      # 是否使用自动签名，这里如果是打包的话应该一般都为false吧，默认也是false
+      use_automatic_signing:false,
+      # 打包的team ID， 也就是打包使用的证书中的team ID，这个如果不知道是什么的话可以在xCode中设置好签名用的描述文件后到xcodeproj下的pbxproj文件中搜索“DEVELOPMENT_TEAM”，它的值就是了
+      # team_id:"---",
+      team_id:"打包对应的账号的TeamId",
+      # 这个就不用说了，需要修改的targets
+      targets:Targetname,
+      # 用哪种方式打包“iPhone Develop”还是“iPhone Distribution”
+      code_sign_identity:"iPhone Distribution",
+      # 描述文件名称， 也就是使用哪个描述文件打包
+      profile_name:ProfileName
+    )
+  
+    gym(
+        # 打包方式，"app-store", "ad-hoc", "package", "enterprise", "development", "developer-id"
+        export_method: "ad-hoc",
+        scheme: "VNDFOREX",
+        # pod 生成的workspace文件
+        workspace:ProjectName + ".xcworkspace",
+        # 输出文件夹
+        output_directory:"../FIR_IPA",
+        # 输出包名称
+        output_name: Targetname  + ".ipa",
+
+        # 打包前是否clean
+        clean:true,
+        silent:true,
+        # 打包的配置 Debug Release
+        configuration:"Release",
+        # 打包日志输出文件夹 太大不用
+        #buildlog_path:LogDirectory,
+        # 打包证书
+        codesigning_identity:'iPhone Distribution: KIM TINH HOA GROUP DEVELOPMENT SERVICE TRADING INVESTMENT COMPANY LIMITED (G6KJH8GGHB)',
+        # Xcode 9 默认不允许访问钥匙串的内容,必须要设置此项才可以，运行过程可能会提示是否允许访问钥匙串，需要输入电脑密码
+        export_xcargs: "-allowProvisioningUpdates",
+        # 导出选项
+        export_options:{
+            # 打包导出时可选描述文件 "bundleID"=>"描述文件名称"
+            provisioningProfiles: {
+                "com.alpha.vndfx" => "#{ProfileName}.mobileprovision",
+            },
+        }
+    )
+
+   # 上传到fir
+   firim(firim_api_token:"这个是在Fir.im对应的API Token")
+  end
+
+end
+
+######### 公用方法 #######  
+### 设置build自增长
+def setBuildVersion 
+  buildStr =  get_build_number()
+  build_num = buildStr.to_i
+  build_num += 1
+  puts "当前版本:" + buildStr + "\t\t修改之后版本:" + build_num.to_s
+  #设置build号
+  increment_build_number(build_number: build_num.to_s)
+end
+```
+
+3. 执行打包上传蒲公英 （注：custom_lane 自定义调用标签）
 ```
 fastlane custom_lane
 ```
