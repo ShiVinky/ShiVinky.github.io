@@ -198,7 +198,8 @@ end
 require 'fileutils'
  
 default_platform(:ios) 
- 
+
+
 # iOS进行的操作
 platform :ios do
 
@@ -207,20 +208,22 @@ platform :ios do
   Archive_ipa_dir = "../archivie/ipa/#{Archive_time}/"
   Archive_log_dir = "#{Archive_ipa_dir}arrchivelog" 
 
-  Project_name = "xxx"
-  Target_name = "xxx"
-  Profile_name = "xxxx"
-  Bundle_id = "com.xxx.xxx.xxx"
-  Team_id = "57xxxG2"
-  Code_signing_id = "iPhone Distribution: xxxx Co., Ltd. (57xxxG2)"
+  Project_name = "SDYunPro"
+  Target_name = "SDYunPro"
+  Profile_name = "AdHoc_sdjy_sdyun"
+  Bundle_id = "com.ai3d.sdjy.sandieyun"
+  Team_id = "573QWHKWG2"
+  Code_signing_id = "iPhone Distribution: Guangzhou Sandianjiyuan Intelligent Technology Co., Ltd. (573QWHKWG2)"
 
   # 打包的lane操作，我们可以配置多个lane来打不同环境的包
   lane :archivie_lane do |op|
 
     # 外部命令传的参数 例如: fastlane archivie_lane buildEvr:${xxxx} 
-    Build_evr = op[:buildEvr] 
+    Build_evr = op[:buildEvr]  
     
     IPA_name = Project_name + "_" + Archive_time + "_" + Build_evr 
+    Archive_scheme = Project_name + "_" + Build_evr 
+    Archive_config = "Release" + "_" + Build_evr 
 
     # automatic_code_signing( # 这里可以不填，不填就是xcode的默认配置
     #   # 工程文件所在路径
@@ -241,7 +244,7 @@ platform :ios do
     gym(
         # 打包方式，"app-store", "ad-hoc", "package", "enterprise", "development", "developer-id"
         export_method: "ad-hoc",
-        scheme: Project_name,
+        scheme: Archive_scheme,
         # # pod 生成的workspace文件
         # workspace:Project_name + ".xcworkspace",
         # 输出文件夹
@@ -253,7 +256,7 @@ platform :ios do
         clean:true,
         silent:true,
         # 打包的配置 Debug Release
-        configuration:"Release",
+        configuration:Archive_config,
         # 打包日志输出文件夹 太大不用
         buildlog_path:Archive_log_dir,
         # 打包证书
